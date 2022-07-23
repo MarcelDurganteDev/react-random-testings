@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function FriendsList(props) {
+    return (
+        <ul>
+            {props.list.map(name => (
+              <li key={name}>
+                <span>
+                  {name}
+                </span>
+                <button >Remove</button>
+              </li>
+            ))}
+        </ul>
+    );
+}
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            friends: ['marcel', 'mika', 'mãe']
+        };
+    }
+
+    handleRemove(name) {
+        this.setState(currState => {
+            return {
+                friends: currState.friends.filter(friend => friend !== name)
+            };
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <FriendsList list={this.state.friends} />
+            </div>
+        );
+    }
 }
 
 export default App;
